@@ -10,8 +10,3 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app');
-
-function a () {
-  console.log(1);
-}
-a();
