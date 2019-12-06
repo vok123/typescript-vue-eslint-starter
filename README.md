@@ -1,11 +1,15 @@
 ## TypeScript-Vue-Eslint-Starter
 
-> webpack4
-> typescript
-> eslint
-> vue
+```
 
-No babel, Only typescript.
+Webpack 4.0+
+Typescript 3.7+
+Eslint 6.0+
+Vue 2.0+
+
+```
+
+No babel, Only typescript. 
 
 ### Start
 
