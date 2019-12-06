@@ -5,7 +5,7 @@
 > eslint
 > vue
 
-No babel, Only typescript. Faster
+No babel, Only typescript.
 
 ### Start
 
@@ -21,7 +21,7 @@ npm run build
 - Install devDependencies
 
 ```shell
-npm i -D @vue/cli-plugin-eslint @vue/eslint-config-standard @vue/eslint-config-typescript eslint eslint-loader eslint-plugin-node eslint-plugin-vue typescript ts-loader
+npm i -D @typescript-eslint/eslint-plugin @typescript-eslint/experimental-utils @typescript-eslint/parser @typescript-eslint/typescript-estree eslint eslint-config-standard eslint-plugin-standard eslint-plugin-import eslint-plugin-promise eslint-loader eslint-plugin-node eslint-plugin-vue typescript ts-loader
 ```
 
 - Install dependencies
@@ -69,22 +69,18 @@ module.exports = {
   plugins: ['vue', '@typescript-eslint'],
   parserOptions: {
     parser: '@typescript-eslint/parser',
-    ecmaVersion: 2017,
+    env: { es6: true },
     sourceType: 'module'
   },
   root: true,
   env: {
-    node: true
+    browser: true,
+    node: true,
+    serviceworker: true
   },
-  extends: [
-    'plugin:vue/base',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:vue/essential',
-    '@vue/standard',
-    '@vue/typescript'
-  ],
+  extends: ['plugin:vue/base', 'plugin:@typescript-eslint/recommended', 'plugin:vue/essential', 'standard'],
   rules: {
-    // eslint rules
+    // 设置默认eslint规则
     'one-var': 0,
     'arrow-parens': 0,
     'generator-star-spacing': 0,
@@ -102,7 +98,10 @@ module.exports = {
     camelcase: 0,
     'no-new': 0,
     indent: 'off',
-    // typescript-eslint rules
+    semi: 'off',
+    // 设置typescript-eslint规则
+    // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin/docs/rules
+    '@typescript-eslint/semi': ['error'],
     '@typescript-eslint/indent': ['error', 2],
     '@typescript-eslint/explicit-function-return-type': 0
   }
@@ -132,13 +131,7 @@ module.exports = {
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "tests/**/*.ts", "tests/**/*.tsx"],
   "exclude": ["node_modules"]
 }
 ```

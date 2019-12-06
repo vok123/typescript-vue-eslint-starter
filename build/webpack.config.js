@@ -1,4 +1,4 @@
-let path = require('path'),
+const path = require('path'),
   Html = require('html-webpack-plugin'),
   ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin'),
   VueLoaderPlugin = require('vue-loader/lib/plugin.js');

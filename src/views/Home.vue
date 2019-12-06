@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <img alt="Vue logo" src="../assets/logo.png" />
     <hello-world msg="vue.js"/>
   </div>
 </template>
@@ -15,5 +15,6 @@ import HelloWorld from '@/components/HelloWorld.vue';
   }
 })
 
-export default class Home extends Vue {}
+export default class Home extends Vue {
+}
 </script>
