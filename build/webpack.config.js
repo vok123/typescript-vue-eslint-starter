@@ -24,14 +24,23 @@ module.exports = {
         }
       },
       {
+        test: /\.(js|jsx)$/,
+        loader: 'babel-loader'
+      },
+      {
         test: /\.ts(x)?$/,
-        loader: 'ts-loader',
         exclude: /node_modules/,
-        options: {
-          appendTsSuffixTo: [/\.vue$/],
-          transpileOnly: true,
-          happyPackMode: false
-        }
+        use: [
+          'babel-loader',
+          {
+            loader: 'ts-loader',
+            options: {
+              appendTsSuffixTo: [/\.vue$/],
+              transpileOnly: true,
+              happyPackMode: false
+            }
+          }
+        ]
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
@@ -63,14 +72,18 @@ module.exports = {
         test: /\.(js|vue|ts|tsx|jsx)$/,
         enforce: 'pre',
         exclude: /node_modules/,
-        loader: 'eslint-loader',
-        options: {
-          fix: false,
-          extensions: ['.js', '.jsx', '.vue', '.ts', '.tsx'],
-          cache: false,
-          emitWarning: true,
-          emitError: false
-        }
+        use: [
+          {
+            loader: 'eslint-loader',
+            options: {
+              fix: false,
+              extensions: ['.js', '.jsx', '.vue', '.ts', '.tsx'],
+              cache: false,
+              emitWarning: true,
+              emitError: false
+            }
+          }
+        ]
       }
     ]
   },
@@ -95,7 +108,7 @@ module.exports = {
     })
   ],
   resolve: {
-    extensions: ['.ts', '.js', '.vue', '.json', '.jsx'],
+    extensions: ['.ts', '.js', '.vue', '.json', '.jsx', '.tsx'],
     alias: {
       vue$: 'vue/dist/vue.esm.js',
       '@': resolve('src')
@@ -108,7 +121,6 @@ module.exports = {
     hot: true,
     host: '0.0.0.0',
     compress: true,
-    noInfo: false,
     quiet: false,
     disableHostCheck: true,
     publicPath: '/',

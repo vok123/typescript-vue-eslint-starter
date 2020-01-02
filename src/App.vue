@@ -4,12 +4,18 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
+    <jsx />
     <router-view/>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-@Component
+import Jsx from './views/Jsx';
+@Component({
+  components: {
+    Jsx
+  }
+})
 export default class Home extends Vue {}
 </script>
 <style lang="scss">
