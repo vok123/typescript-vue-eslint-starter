@@ -10,7 +10,7 @@ Babel 7.0+
 
 ```
 
-``` babel + typescript ``` faster than ``` only typescript ```, support jsx
+``` babel + typescript ``` faster than ``` only typescript ```, support tsx
 
 ### Start
 
