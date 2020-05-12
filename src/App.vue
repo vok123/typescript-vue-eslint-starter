@@ -5,19 +5,10 @@
       <router-link to="/about">About</router-link>
     </div>
     <jsx />
-    <router-view/>
+    <router-view />
   </div>
 </template>
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import Jsx from './views/Jsx';
-@Component({
-  components: {
-    Jsx
-  }
-})
-export default class Home extends Vue {}
-</script>
+<script lang="ts" src="./App.ts"></script>
 <style lang="scss">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

@@ -21,7 +21,7 @@ module.exports = {
     "standard"
   ],
   rules: {
-    // 设置默认eslint规则
+    // default eslint rules
     "one-var": 0,
     "arrow-parens": 0,
     "generator-star-spacing": 0,
@@ -47,7 +47,7 @@ module.exports = {
         argsIgnorePattern: "^h$"
       }
     ],
-    // 设置typescript-eslint规则
+    // typescript-eslint rules
     // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin/docs/rules
     "@typescript-eslint/semi": ["error"],
     "@typescript-eslint/indent": ["error", 2],

@@ -1,4 +1,4 @@
-## TypeScript-Vue-Eslint-Starter
+## TypeScript-Babel-Vue-Eslint-Starter
 
 ```
 
@@ -6,10 +6,11 @@ Webpack 4.0+
 Typescript 3.7+
 Eslint 6.0+
 Vue 2.0+
+Babel 7.0+
 
 ```
 
-No babel, Only typescript. 
+``` babel + typescript ``` faster than ``` only typescript ```, support jsx
 
 ### Start
 
@@ -25,7 +26,28 @@ npm run build
 - Install devDependencies
 
 ```shell
-npm i -D @typescript-eslint/eslint-plugin @typescript-eslint/experimental-utils @typescript-eslint/parser @typescript-eslint/typescript-estree eslint eslint-config-standard eslint-plugin-standard eslint-plugin-import eslint-plugin-promise eslint-loader eslint-plugin-node eslint-plugin-vue typescript ts-loader
+npm i -D
+  @typescript-eslint/eslint-plugin
+  @typescript-eslint/parser
+  eslint
+  eslint-config-standard
+  eslint-plugin-standard
+  eslint-plugin-import
+  eslint-plugin-promise
+  eslint-loader
+  eslint-plugin-node
+  eslint-plugin-vue
+  typescript
+  @babel/cli
+  @babel/core
+  @babel/plugin-proposal-class-properties
+  @babel/plugin-proposal-decorators
+  @babel/plugin-proposal-numeric-separator
+  @babel/plugin-proposal-object-rest-spread
+  @babel/preset-env
+  @babel/preset-typescript
+  babel-eslint
+  babel-loader
 ```
 
 - Install dependencies
@@ -34,20 +56,26 @@ npm i -D @typescript-eslint/eslint-plugin @typescript-eslint/experimental-utils 
 npm i -S vue-class-component vue-property-decorator
 ```
 
-### 2. Webpack config (add ts-loader/eslint-loader)
+### 2. Webpack config (add babel-loader/eslint-loader)
 
 ```javascript
 module: {
   rules: [
     {
-      test: /\.ts(x)?$/,
-      loader: 'ts-loader',
-      exclude: /node_modules/,
+      test: /\.vue$/,
+      loader: 'vue-loader',
       options: {
-        appendTsSuffixTo: [/\.vue$/],
-        transpileOnly: true,
-        happyPackMode: false
+        compilerOptions: {
+          preserveWhitespace: false
+        }
       }
+    },
+    {
+      test: /\.ts(x)?$/,
+      exclude: /node_modules/,
+      use: [
+        'babel-loader'
+      ]
     },
     {
       test: /\.(js|vue|ts|tsx|jsx)$/,
@@ -59,7 +87,7 @@ module: {
         extensions: ['.js', '.jsx', '.vue', '.ts', '.tsx'],
         cache: false,
         emitWarning: true,
-        emitError: false
+        emitError: true
       }
     }
   ];
@@ -79,12 +107,11 @@ module.exports = {
   root: true,
   env: {
     browser: true,
-    node: true,
-    serviceworker: true
+    node: true
   },
   extends: ['plugin:vue/base', 'plugin:@typescript-eslint/recommended', 'plugin:vue/essential', 'standard'],
   rules: {
-    // 设置默认eslint规则
+    // default eslint rules
     'one-var': 0,
     'arrow-parens': 0,
     'generator-star-spacing': 0,
@@ -103,7 +130,7 @@ module.exports = {
     'no-new': 0,
     indent: 'off',
     semi: 'off',
-    // 设置typescript-eslint规则
+    // typescript-eslint rules
     // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin/docs/rules
     '@typescript-eslint/semi': ['error'],
     '@typescript-eslint/indent': ['error', 2],
@@ -117,8 +144,8 @@ module.exports = {
 ```json
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "esnext",
+    "target": "es6",
+    "module": "ESNext",
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
@@ -133,9 +160,29 @@ module.exports = {
     "paths": {
       "@/*": ["src/*"]
     },
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+    "lib": ["ESNext", "dom", "dom.iterable", "scripthost"]
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "tests/**/*.ts", "tests/**/*.tsx"],
   "exclude": ["node_modules"]
 }
+```
+
+### 5. Add .babelrc
+
+```json
+{
+  "presets": ["@babel/env", "@babel/typescript", "@vue/babel-preset-jsx"],
+  "plugins": [
+    "@babel/proposal-numeric-separator",
+    [
+      "@babel/proposal-decorators",
+      {
+        "legacy": true
+      }
+    ],
+    ["@babel/proposal-class-properties", { "loose": false }],
+    "@babel/proposal-object-rest-spread"
+  ]
+}
+
 ```

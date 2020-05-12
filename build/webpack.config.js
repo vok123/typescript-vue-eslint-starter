@@ -1,3 +1,4 @@
+/* eslint @typescript-eslint/no-var-requires:off */
 const path = require('path'),
   Html = require('html-webpack-plugin'),
   ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin'),
@@ -31,15 +32,7 @@ module.exports = {
         test: /\.ts(x)?$/,
         exclude: /node_modules/,
         use: [
-          'babel-loader',
-          {
-            loader: 'ts-loader',
-            options: {
-              appendTsSuffixTo: [/\.vue$/],
-              transpileOnly: true,
-              happyPackMode: false
-            }
-          }
+          'babel-loader'
         ]
       },
       {
@@ -80,21 +73,14 @@ module.exports = {
               extensions: ['.js', '.jsx', '.vue', '.ts', '.tsx'],
               cache: false,
               emitWarning: true,
-              emitError: false
+              emitError: true
             }
           }
         ]
       }
     ]
   },
-  node: {
-    setImmediate: false,
-    process: 'mock',
-    dgram: 'empty',
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty'
-  },
+  node: false,
   plugins: [
     new VueLoaderPlugin(),
     new Html({
@@ -117,6 +103,7 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     noInfo: true,
+    port: 8080,
     contentBase: [path.join(__dirname, '../')],
     hot: true,
     host: '0.0.0.0',
