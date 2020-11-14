@@ -4,7 +4,7 @@
 
 Webpack 4.0+
 Typescript 3.7+
-Eslint 6.0+
+Eslint 7.0+
 Vue 2.0+
 Babel 7.0+
 
@@ -34,7 +34,7 @@ npm i -D
   eslint-plugin-standard
   eslint-plugin-import
   eslint-plugin-promise
-  eslint-loader
+  eslint-webpack-plugin
   eslint-plugin-node
   eslint-plugin-vue
   typescript
@@ -56,41 +56,41 @@ npm i -D
 npm i -S vue-class-component vue-property-decorator
 ```
 
-### 2. Webpack config (add babel-loader/eslint-loader)
+### 2. Webpack config (add babel-loader)
 
 ```javascript
-module: {
-  rules: [
-    {
-      test: /\.vue$/,
-      loader: 'vue-loader',
-      options: {
-        compilerOptions: {
-          preserveWhitespace: false
+const ESLintPlugin = require('eslint-webpack-plugin');
+
+{
+  module: {
+    rules: [
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          compilerOptions: {
+            preserveWhitespace: false
+          }
         }
+      },
+      {
+        test: /\.ts(x)?$/,
+        exclude: /node_modules/,
+        use: [
+          'babel-loader'
+        ]
       }
-    },
-    {
-      test: /\.ts(x)?$/,
-      exclude: /node_modules/,
-      use: [
-        'babel-loader'
-      ]
-    },
-    {
-      test: /\.(js|vue|ts|tsx|jsx)$/,
-      enforce: 'pre',
-      exclude: /node_modules/,
-      loader: 'eslint-loader',
-      options: {
-        fix: false,
-        extensions: ['.js', '.jsx', '.vue', '.ts', '.tsx'],
-        cache: false,
-        emitWarning: true,
-        emitError: true
-      }
-    }
-  ];
+    ];
+  },
+  plugins: [
+    new ESLintPlugin({
+      fix: false,
+      extensions: ['.js', '.jsx', '.vue', '.ts', '.tsx'],
+      cache: false,
+      emitWarning: true,
+      emitError: true
+    })
+  ]
 }
 ```
 
